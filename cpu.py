@@ -86,6 +86,22 @@ class CPU:
         self.alu("CMP", operand_a, operand_b)
         return (3, True)
 
+    def jmp(self, operand_a, operand_b):
+        self.PC = self.reg[operand_a]
+        return (0, True)
+
+    def jeq(self, operand_a, operand_b):
+        if self.FL == 0b00000001:
+            self.PC = self.reg[operand_a]
+            return(0, True)
+        return (2, True)
+
+    def jne(self, operand_a, operand_b):
+        if self.FL != 0b00000001:
+            self.PC = self.reg[operand_a]
+            return(0, True)
+        return (2, True)
+
     def load(self, program):
         """Load a program into memory."""
         try:
